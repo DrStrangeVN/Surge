@@ -37,7 +37,10 @@ loglevel = warning
 ⓁⓄⒶⒹ 🅐🅓🅢 = load-balance, persistent=0, policy-regex-filter=AdBlock, no-alert=0, hidden=1, include-all-proxies=0, include-other-group=🅵🆄🅻🅻 🆂🅴🆁🆅🅴🆁
 
 [Rule]
-DOMAIN-SET,https://raw.githubusercontent.com/lonely0811/olsd/main/surge/AllSERVERADS.conf,REJECT-TINYGIF
+#Bảng 1: 200k rule
+#DOMAIN-SET,https://raw.githubusercontent.com/lonely0811/olsd/main/surge/AllSERVERADS.conf,REJECT-TINYGIF
+#Bảng 2: 20k rule VN
+DOMAIN-SET,https://raw.githubusercontent.com/DrStrangeVN/Rule/main/Allserver.js,REJECT-TINYGIF
 # Prevent application loop requests
 IP-CIDR,0.0.0.0/32,REJECT,no-resolve
 FINAL,🆅🅸🅴 🅵🅰🆂🆃
