@@ -46,7 +46,7 @@ IP-CIDR,0.0.0.0/32,REJECT,no-resolve
 FINAL,🆅🅸🅴 🅵🅰🆂🆃
 
 [URL Rewrite]
-(^https?:\/\/.+\.googlevideo\.com\/.+)(&amp;ctier=[A-Z])(&amp;.+) $1$3 302
+#(^https?:\/\/.+\.googlevideo\.com\/.+)(&amp;ctier=[A-Z])(&amp;.+) $1$3 302
 
 [MITM]
 skip-server-cert-verify = true
