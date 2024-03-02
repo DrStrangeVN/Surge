@@ -1,0 +1,13 @@
+#!name= 𝗜𝗣 𝗜𝗡𝗙𝗢
+#!desc= NetInfo-𝗩𝗨 𝗗𝗜𝗡𝗛 𝗧𝗥𝗜
+
+[Panel]
+NetInfoPanel=title="",content="",style=info,script-name=net-info-panel.js,update-interval=1
+
+#𝗦𝗽𝗲𝗲𝗱 𝗧𝗲𝘀𝘁 = script-name=𝗦𝗽𝗲𝗲𝗱 𝗧𝗲𝘀𝘁,update-interval=-1
+
+[Script]
+net-info-panel.js=script-path=https://gist.githubusercontent.com/Drstrangevn01/dd1d5381af6063f387288ae4cedf764f/raw/cbbccb872e5968dde98af843fa15316ec89a5987/Network_check.js,type=generic,timeout=30
+
+[Host]
+ip-api.com = 208.95.112.1
