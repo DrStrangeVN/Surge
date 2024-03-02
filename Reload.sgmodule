@@ -1,0 +1,14 @@
+#!name= 𝗥𝗘𝗟𝗢𝗔𝗗 𝗖𝗢𝗡𝗙𝗜𝗚
+#!desc= Reload config _ 𝗩𝗨 𝗗𝗜𝗡𝗛 𝗧𝗥𝗜
+
+
+[Panel]
+
+Configuration reloading = title=Configuration reloading, content=Configuration reloading, style=info, script-name=Configuration reloading, update-interval=-1
+#{{{ST Panel}}} = script-name={{{ST Panel}}},update-interval=-1
+
+
+[Script]
+
+Configuration reloading = type=generic,script-path= https://gist.githubusercontent.com/Drstrangevn01/9921741f91fae702baeb06b8cd2df412/raw/4a879223eb11712ef805bd15d8dcdc9d7b091241/Reload.js
+
