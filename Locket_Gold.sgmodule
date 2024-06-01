@@ -1,0 +1,13 @@
+#!name=Locket Gold
+#!desc=Premium
+
+[MITM]
+hostnames:
+  - api.revenuecat.com
+
+[Script]
+Locket_Gold_AQVPN = type=http-response,pattern=^https:\/\/api\.revenuecat\.com\/.+\/(receipts$|subscribers\/[^/]+$),requires-body=1,max-size=0,script-path=https://download.aqvpn.eu.org/script/apptesters/AutoRC.js,update-interval=5
+
+[Header Rewrite]
+^https?://api.revenuecat.com/.+/(receipts$|subscribers/?(.*?)*$) = delete header X-RevenueCat-ETag
+^https?://api.revenuecat.com/.+/(receipts$|subscribers/?(.*?)*$) = delete header x-revenuecat-etag
