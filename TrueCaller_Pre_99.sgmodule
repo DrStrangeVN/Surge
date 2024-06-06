@@ -1,0 +1,8 @@
+#!name=Unlock Truecaller
+#!desc=Truecaller Gold Subscription
+
+[Script]
+Truecaller = type=http-response, pattern=^https://premium-(.+)\.truecaller\.com/v\d/(subscriptions|products\/apple), script-path=https://gist.githubusercontent.com/Drstrangevn01/00e0e6eee3a9f4a1c10ef48a3e7352bd/raw/87e9867dd89147746e740d8921ab6752a23f4309/TrueCaller.js, requires-body=true, max-size=0
+
+[MITM]
+hostname = %APPEND% premium*.truecaller.com
