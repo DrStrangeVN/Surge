@@ -5,4 +5,4 @@
 #!author=Kien Tran
 
 [Script]
-cron "*/2 * * * *" script-path=https://raw.githubusercontent.com/FreedomNodes/vpn-script/main/src/surge/BoostBandwidth/scripts/get-speed-test-config.js
+cron "*/2 * * * *" script-path=https://raw.githubusercontent.com/DrStrangeVN/Surge/main/get-speed-test-config.js
