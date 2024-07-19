@@ -193,143 +193,170 @@ let content = '';
 	}
 
 	if (CN_INFO) {
-	  CN_INFO = `\n${CN_INFO}`;
-	}
-	const policy_prefix = $.isQuanX() || $.isLoon() ? 'Node: ' : 'Proxy Policy: ';
-	if (PROXY_POLICY === 'DIRECT') {	PROXY_POLICY = `Policy: Direct`;
-		  } else {
-			PROXY_POLICY = `${policy_prefix}${maskAddr(PROXY_POLICY) || '-'}`;
-		  }
-		
-		  if (PROXY_INFO) {
-			PROXY_INFO = `\n${PROXY_INFO}`;
-		  }
-		
-		  title = 'Network Info';
-		  content = `${LAN}${SSID}${CN_POLICY}${CN_IP || '-'}${CN_IPv6}${CN_INFO}\n${PROXY_POLICY}${maskIP(PROXY_IP) || '-'}${PROXY_IPv6}${PROXY_INFO}${PROXY_PRIVACY}\n${ENTRANCE}`;
-		
-		  $.log(`Final output:\n${content}`);
-		
-		  if (isInteraction()) {
-			await notify(title, '', content);
-		  } else if (isRequest()) {
-			$.done({
-			  title: title,
-			  content: content,
-			  'icon': 'wifi',
-			  'icon-color': 'blue'
-			});
-		  } else if (isTile()) {
-			$.done({ title, content });
-		  } else if (isPanel()) {
-			$.done({ title, content });
-		  }
+		  CN_INFO = `\n${CN_INFO}`;
 		}
-		
-		})().catch((e) => $.logErr(e)).finally(() => $.done());
-		
-		// Function definitions
-		function isInteraction() {
-		  return typeof $interaction !== 'undefined';
+		const policy_prefix = $.isQuanX() || $.isLoon() ? 'Node: ' : 'Proxy Policy: ';
+		if (PROXY_POLICY) {
+		  proxy_policy = `${policy_prefix}${maskAddr(PROXY_POLICY) || '-'}\n`;
 		}
-		
-		function isRequest() {
-		  return typeof $request !== 'undefined';
-		}
-		
-		function isTile() {
-		  return typeof $tile !== 'undefined';
-		}
-		
-		function isPanel() {
-		  return typeof $panel !== 'undefined';
-		}
-		
-		async function notify(title, subtitle, content) {
-		  if ($.isQuanX()) {
-			$notify(title, subtitle, content);
-		  } else if ($.isSurge() || $.isLoon()) {
-			$notification.post(title, subtitle, content);
-		  } else if ($.isStash()) {
-			$stash.notify(title, subtitle, content);
-		  }
-		}
-		
-		async function getProxies() {
-		  return new Promise((resolve) => {
-			if ($.isQuanX()) {
-			  $httpAPI('get', '/v1/policy_groups', {}, (data) => resolve(data));
-			} else if ($.isSurge()) {
-			  $httpAPI('GET', 'v1/policy_groups/select', null, (data) => resolve(data));
-			} else if ($.isLoon() || $.isStash()) {
-			  resolve({});
-			}
-		  });
-		}
-		
-		function parseQueryString(url) {
-		  const queryString = url.split('?')[1] || '';
-		  return Object.fromEntries(new URLSearchParams(queryString));
-		}
-		
-		function maskIP(ip) {
-		  if (!ip) return '-';
-		  const parts = ip.split('.');
-		  return parts.map((part, index) => (index === parts.length - 1 ? '*' : part)).join('.');
-		}
-		
-		function maskAddr(addr) {
-		  return addr.replace(/(\d{1,3}\.){3}\d{1,3}/g, (match) => maskIP(match));
-		}
-		
-		async function resolveDomain(domain) {
-		  return new Promise((resolve) => {
-			if ($.isQuanX()) {
-			  $dns.lookup(domain, (error, address) => {
-				resolve({ IP: address });
-			  });
-			} else if ($.isSurge() || $.isLoon()) {
-			  $dns.lookup(domain, (error, address) => {
-				resolve({ IP: address });
-			  });
-			} else {
-			  resolve({ IP: null });
-			}
-		  });
-		}
-		
-		async function getDirectRequestInfo({ PROXIES }) {
-		  // Replace with actual function implementation
-		  return {};
-		}
-		
-		async function getProxyRequestInfo({ PROXIES }) {
-		  // Replace with actual function implementation
-		  return {};
-		}
-		
-		async function getDirectInfoIPv6() {
-		  // Replace with actual function implementation
-		  return {};
-		}
-		
-		async function getProxyInfoIPv6() {
-		  // Replace with actual function implementation
-		  return {};
-		}
-		
-		async function getDirectInfo(ip, options) {
-		  // Replace with actual function implementation
-		  return {};
-		}
-		
-		async function getProxyInfo(ip, options) {
-		  // Replace with actual function implementation
-		  return {};
-		}
-		
-		function isIPv6(ip) {
-		  return ip.includes(':');
-		}
-		
+	
+		title = 'Network Information';
+		content = `${SSID}${LAN}${ENTRANCE}Direct Connection: ${maskIP(CN_IP) || '-'}${CN_IPv6}${CN_INFO}\n${CN_POLICY}${proxy_policy}Proxy: ${maskIP(PROXY_IP) || '-'}${PROXY_IPv6}${PROXY_INFO}${PROXY_PRIVACY}`;
+	
+		result = { title, content };
+		await notify(title, '', content);
+	  }
+	
+	  $.log($.toStr(result));
+	  $.done(result);
+	})()
+	  .catch((e) => {
+		$.logErr(e);
 		$.done();
+	  });
+	
+	function isTile() {
+	  if (typeof $environment != 'undefined') {
+		return $.lodash_get($environment, 'event') === 'widget';
+	  }
+	  return false;
+	}
+	
+	function isPanel() {
+	  if (typeof $environment != 'undefined') {
+		return $.lodash_get($environment, 'event') === 'panel';
+	  }
+	  return false;
+	}
+	
+	function isRequest() {
+	  if (typeof $request != 'undefined') {
+		return true;
+	  }
+	  return false;
+	}
+	
+	function isInteraction() {
+	  if (typeof $environment != 'undefined') {
+		return $.lodash_get($environment, 'executor') === 'interact';
+	  }
+	  return false;
+	}
+	
+	function notify(subtitle = '', message = '', content = '') {
+	  if ($.isQuanX()) {
+		$notify('Network Information', subtitle, `${message}\n${content}`);
+	  } else if ($.isSurge() || $.isStash()) {
+		$notification.post('Network Information', subtitle, `${message}\n${content}`);
+	  } else if ($.isLoon()) {
+		$notification.post('Network Information', subtitle, `${message}\n${content}`);
+	  }
+	}
+	
+	async function getProxies() {
+	  const proxies = [];
+	  if ($.isSurge() || $.isStash()) {
+		proxies.push({ server: $network.vpn.server, password: $network.vpn.password });
+	  }
+	  if ($.isLoon()) {
+		const conf = await $httpClient.get('http://127.0.0.1:6000/proxy/policy', { timeout: 5 });
+		const proxyList = JSON.parse(conf.body);
+		proxyList.forEach((proxy) => {
+		  proxies.push(proxy);
+		});
+	  }
+	  return { PROXIES: proxies };
+	}
+	
+	function parseQueryString(url) {
+	  const queryString = url.split('?')[1];
+	  if (!queryString) {
+		return {};
+	  }
+	  return Object.fromEntries(
+		queryString.split('&').map((item) => item.split('='))
+	  );
+	}
+	
+	function maskIP(ip) {
+	  if (!ip) return '';
+	  return ip.replace(/(\d+\.\d+\.\d+)\.\d+/, '$1.***');
+	}
+	
+	function maskAddr(addr) {
+	  if (!addr) return '';
+	  return addr.replace(/(.{3})(.*)(.{3})/, '$1***$3');
+	}
+	
+	function isIPv6(ip) {
+	  return ip.includes(':');
+	}
+	
+	async function getDirectRequestInfo({ PROXIES }) {
+	  const direct = { CN_IP: '', CN_INFO: '', CN_POLICY: '' };
+	  const response = await $httpClient.get('http://ipinfo.io/json');
+	  const { ip, city, region, country, org } = JSON.parse(response.body);
+	  direct.CN_IP = ip;
+	  direct.CN_INFO = `${city}, ${region}, ${country}\n${org}`;
+	  return direct;
+	}
+	
+	async function getProxyRequestInfo({ PROXIES }) {
+	  const proxy = { PROXY_IP: '', PROXY_INFO: '', PROXY_PRIVACY: '', PROXY_POLICY: '', ENTRANCE_IP: '' };
+	  const response = await $httpClient.get('http://ipinfo.io/json');
+	  const { ip, city, region, country, org } = JSON.parse(response.body);
+	  proxy.PROXY_IP = ip;
+	  proxy.PROXY_INFO = `${city}, ${region}, ${country}\n${org}`;
+	  proxy.PROXY_POLICY = PROXIES[0].server;
+	  proxy.PROXY_PRIVACY = 'This is proxy information';
+	  return proxy;
+	}
+	
+	async function getDirectInfoIPv6() {
+	  const directIPv6 = { CN_IPv6: '' };
+	  const response = await $httpClient.get('http://ipv6.ip6.me/');
+	  const match = response.body.match(/client ip: ([\da-f:]+)/i);
+	  if (match) {
+		directIPv6.CN_IPv6 = match[1];
+	  }
+	  return directIPv6;
+	}
+	
+	async function getProxyInfoIPv6() {
+	  const proxyIPv6 = { PROXY_IPv6: '' };
+	  const response = await $httpClient.get('http://ipv6.ip6.me/');
+	  const match = response.body.match(/client ip: ([\da-f:]+)/i);
+	  if (match) {
+		proxyIPv6.PROXY_IPv6 = match[1];
+	  }
+	  return proxyIPv6;
+	}
+	
+	async function resolveDomain(domain) {
+	  let resolvedIP = '';
+	  try {
+		const response = await $httpClient.get(`http://dns.google/resolve?name=${domain}`);
+		const { Answer } = JSON.parse(response.body);
+		resolvedIP = Answer?.[0]?.data || '';
+	  } catch (e) {
+		$.logErr(e);
+	  }
+	  return { IP: resolvedIP };
+	}
+	
+	async function getDirectInfo(ip, domestic) {
+	  const direct = { CN_INFO: '', isCN: false };
+	  const response = await $httpClient.get(`http://ipinfo.io/${ip}/json`);
+	  const { city, region, country, org } = JSON.parse(response.body);
+	  direct.CN_INFO = `${city}, ${region}, ${country}\n${org}`;
+	  direct.isCN = country === 'CN';
+	  return direct;
+	}
+	
+	async function getProxyInfo(ip, landing) {
+	  const proxy = { PROXY_INFO: '' };
+	  const response = await $httpClient.get(`http://ipinfo.io/${ip}/json`);
+	  const { city, region, country, org } = JSON.parse(response.body);
+	  proxy.PROXY_INFO = `${city}, ${region}, ${country}\n${org}`;
+	  return proxy;
+	}
