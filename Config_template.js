@@ -83,19 +83,19 @@ loglevel = warning
 🆅🅿🅽 = select, 🅢🅜🅐🅡🅣, 🅑🅐🅛🅐🅝🅒🅔, 🅢🅘🅝🅖🅐🅟🅞🅡🅔, no-alert=0, hidden=0, include-all-proxies=1, update-interval=3600, policy-path=xxxc, icon-url=https://raw.githubusercontent.com/DrStrangeVN/3D-ICON/main/Icon46.png
 
 
-🅟🅘🅝🅖 = smart, no-alert=0, hidden=1, include-all-proxies=0, evaluate-before-use=0, update-interval=3600, policy-regex-filter=𝗩𝗜𝗘𝗧 𝗡𝗔𝗠, include-other-group=🆅🅿🅽, tolerance=50, icon-url=https://raw.githubusercontent.com/DrStrangeVN/3D-ICON/main/Icon10.png
+🅟🅘🅝🅖 = smart, no-alert=0, hidden=1, include-all-proxies=0, evaluate-before-use=0, update-interval=3600, policy-regex-filter=🇻🇳, include-other-group=🆅🅿🅽, tolerance=50, icon-url=https://raw.githubusercontent.com/DrStrangeVN/3D-ICON/main/Icon10.png
 
 
-🅢🅜🅐🅡🅣 = smart, no-alert=1, hidden=1, include-all-proxies=1, policy-path=xxxc, update-interval=0, policy-regex-filter=𝗩𝗜𝗘𝗧 𝗡𝗔𝗠, tolerance=50, icon-url=https://raw.githubusercontent.com/DrStrangeVN/3D-ICON/main/Icon99.png
+🅢🅜🅐🅡🅣 = smart, no-alert=1, hidden=1, include-all-proxies=1, policy-path=xxxc, update-interval=0, policy-regex-filter=🇻🇳, tolerance=50, icon-url=https://raw.githubusercontent.com/DrStrangeVN/3D-ICON/main/Icon99.png
 
 
-🅑🅐🅛🅐🅝🅒🅔 = load-balance, persistent=0, no-alert=1, hidden=1, include-all-proxies=0, policy-path=xxxc, update-interval=0, policy-regex-filter=𝗩𝗜𝗘𝗧 𝗡𝗔𝗠|𝗦𝗜𝗡𝗚𝗔𝗣𝗢𝗥𝗘, tolerance=50, icon-url=https://raw.githubusercontent.com/DrStrangeVN/3D-ICON/main/Icon89.png
+🅑🅐🅛🅐🅝🅒🅔 = load-balance, persistent=0, no-alert=1, hidden=1, include-all-proxies=0, policy-path=xxxc, update-interval=0, policy-regex-filter=🇻🇳, tolerance=50, icon-url=https://raw.githubusercontent.com/DrStrangeVN/3D-ICON/main/Icon89.png
 
 
-🅢🅘🅝🅖🅐🅟🅞🅡🅔 = load-balance, update-interval=0, policy-regex-filter=𝗦𝗜𝗡𝗚𝗔𝗣𝗢𝗥𝗘, no-alert=0, hidden=1, include-all-proxies=0, persistent=0, policy-path=xxxc, icon-url=https://raw.githubusercontent.com/DrStrangeVN/3D-ICON/main/Icon97.png
+🅢🅘🅝🅖🅐🅟🅞🅡🅔 = load-balance, update-interval=0, policy-regex-filter=🇸🇬, no-alert=0, hidden=1, include-all-proxies=0, persistent=0, policy-path=xxxc, icon-url=https://raw.githubusercontent.com/DrStrangeVN/3D-ICON/main/Icon97.png
 
 
-🅗🅞🅝🅖 🅚🅞🅝🅖 = smart, policy-regex-filter=𝗛𝗢𝗡𝗚, no-alert=0, hidden=1, include-all-proxies=1, include-other-group=🆅🅿🅽, persistent=0, icon-url=https://raw.githubusercontent.com/DrStrangeVN/3D-ICON/main/Icon58.png
+🅗🅞🅝🅖 🅚🅞🅝🅖 = smart, policy-regex-filter=🇨🇳, no-alert=0, hidden=1, include-all-proxies=1, include-other-group=🆅🅿🅽, persistent=0, icon-url=https://raw.githubusercontent.com/DrStrangeVN/3D-ICON/main/Icon58.png
 
 
 
